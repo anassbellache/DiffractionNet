@@ -1,0 +1,5 @@
+outs:
+- md5: 3eb967c485fcce1e4d50c8c34d4216b8.dir
+  size: 3088778670
+  nfiles: 24999
+  path: synthetic
