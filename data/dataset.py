@@ -20,7 +20,7 @@ class DiffraNetDataset(Dataset):
             path = os.path.join(root, class_)
             _, _, images = next(os.walk(path))
             for img in images:
-                self.filenames.append((os.path.join(path ,img), class_))
+                self.filenames.append((os.path.join(path ,img), int(class_)))
         
         self.transform = transform
 
