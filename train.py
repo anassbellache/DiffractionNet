@@ -15,7 +15,7 @@ from statistics import mean
 np.random.seed(0)
 torch.manual_seed(0)
 
-num_classes = 5
+num_classes = 2
 EPOCHS = 100
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

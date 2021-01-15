@@ -19,8 +19,12 @@ class DiffraNetDataset(Dataset):
         for class_ in dirs:
             path = os.path.join(root, class_)
             _, _, images = next(os.walk(path))
+            if int(class_) <= 3:
+                label = 0
+            else:
+                label = 1
             for img in images:
-                self.filenames.append((os.path.join(path ,img), int(class_)))
+                self.filenames.append((os.path.join(path ,img), label))
         
         self.transform = transform
 
