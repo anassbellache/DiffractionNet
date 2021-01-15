@@ -66,7 +66,7 @@ data_dir = "./data/synthetic"
 data_transformer = transforms.Compose([transforms.ToTensor()])
 
 train_ds = DiffraNetDataset(data_dir, data_transformer)
-val_ds = DiffraNetDataset(data_dir, transform=data_transformer, data_type="validation")
+val_ds = DiffraNetDataset(data_dir, transform=data_transformer, data_type="real_preprocessed", phase="validation")
 
 train_dl = DataLoader(train_ds, batch_size=8, shuffle=True)
 val_dl = DataLoader(val_ds, batch_size=8, shuffle=True)

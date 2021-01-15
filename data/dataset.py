@@ -11,18 +11,21 @@ from collections import defaultdict
 
 
 class DiffraNetDataset(Dataset):
-    def __init__(self, data_dir, transform=None, data_type="train"):
-        path2data = os.path.join(data_dir, data_type)
+    def __init__(self, data_dir, transform=None, data_type="synthetic", phase="train"):
+        path2data = os.path.join(data_dir, phase)
         self.filenames = []
         self._size = 0
         root, dirs, _ = next(os.walk(path2data))
         for class_ in dirs:
             path = os.path.join(root, class_)
             _, _, images = next(os.walk(path))
-            if int(class_) <= 3:
-                label = 0
+            if data_type == "synthetic":
+                if int(class_) <= 3:
+                    label = 0
+                else:
+                    label = 1
             else:
-                label = 1
+                label = class_ - 1
             for img in images:
                 self.filenames.append((os.path.join(path ,img), label))
         
