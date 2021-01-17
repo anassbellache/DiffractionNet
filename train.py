@@ -11,6 +11,7 @@ from data.dataset import DiffraNetDataset
 from model.deep_freak import get_classifier
 
 from statistics import mean
+import copy
 
 np.random.seed(0)
 torch.manual_seed(0)
@@ -63,6 +64,7 @@ def loss_epoch(model, loss_func, dataset_dl, sanity_check=False, opt=None):
     return loss, metric
     
 data_dir = "./data/synthetic"
+path2weights = "./models/weights.pt"
 data_transformer = transforms.Compose([transforms.ToTensor()])
 
 train_ds = DiffraNetDataset(data_dir, data_transformer)
@@ -84,6 +86,7 @@ metric_history = {
     "train": [],
     "val": [],
 }
+best_loss = 10
 
 for epoch in range(EPOCHS):
     running_loss = []
@@ -98,8 +101,16 @@ for epoch in range(EPOCHS):
         loss_history["val"].append(val_loss)
         metric_history["val"].append(val_metric)
 
+        if val_loss < best_loss:
+            best_loss = val_loss
+            best_model_wts = copy.deepcopy(model.state_dict())
+            torch.save(model.state_dict(), path2weights)
+            print("Copied best model weights!")
+
     print("train loss: %.6f, dev loss: %.6f, accuracy: %.2f" %(train_loss,val_loss,100*val_metric))
     print("-"*10)
+
+torch.save(model.state_dict(), path2weights)
 
 plt.title("Train-Val Loss")
 plt.plot(range(1, EPOCHS+1), loss_history["train"], label="train")

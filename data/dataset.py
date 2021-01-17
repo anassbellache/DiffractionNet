@@ -25,7 +25,7 @@ class DiffraNetDataset(Dataset):
                 else:
                     label = 1
             else:
-                label = class_ - 1
+                label = int(class_ ) - 1
             for img in images:
                 self.filenames.append((os.path.join(path ,img), label))
         
