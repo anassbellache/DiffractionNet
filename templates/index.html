@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Diffraction signal strength</h1>
+
+    <form method='POST' action=" {{ url_for('index') }} " enctype='multipart/form-data'>
+        <div>
+            <input class="form-control form-control-lg"  type="file" name='image_file'>
+            <button type="submit" name="button" class='btn btn-primary btn-sm'>Submit</button>
+        </div>
+    </form>
+
+
+    {{ sig }}
+
+{% endblock %}
